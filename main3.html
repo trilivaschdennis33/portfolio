@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Charalampos–Dionysios Trilivas | Engineering Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.18);
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border: #1f2937;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b, #020617 55%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: #111827;
+      border: 2px solid var(--accent-soft);
+      object-fit: cover;
+    }
+
+    .hero-main {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2.1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-size: 0.97rem;
+      color: var(--text-soft);
+      max-width: 640px;
+      margin: 0 0 10px;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,0.9);
+    }
+
+    .pill strong { color: var(--accent); }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin: 0 0 8px;
+    }
+
+    .project {
+      position: relative;
+      border-radius: 16px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      border: 1px solid #111827;
+      background: radial-gradient(circle at top left, #020617, #020617 55%);
+    }
+
+    .project.hyperion::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("media/image19.png") center/cover no-repeat;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .project-inner {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(145deg, rgba(2,6,23,0.96), rgba(15,23,42,0.96));
+    }
+
+    .project-header {
+      padding: 16px 16px 10px;
+      border-bottom: 1px solid #111827;
+    }
+
+    .project-title {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .project-meta {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+
+    .project-body {
+      padding: 12px 16px 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 800px) {
+      .project-body {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .project-text {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .project-text p {
+      margin: 0 0 8px;
+    }
+
+    .project-text ul {
+      margin: 0 0 6px;
+      padding-left: 18px;
+    }
+
+    .project-text li {
+      margin-bottom: 4px;
+    }
+
+    .project-tags {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.78rem;
+    }
+
+    .project-tags span {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,0.9);
+    }
+
+    /* εικόνες – κοινός, “συμμαζεμένος” κανόνας */
+    .project-media {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 6px;
+      align-content: start;
+    }
+
+    @media (max-width: 900px) {
+      .project-media {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .project-media {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .project-media a {
+      display: block;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #111827;
+      background: #020617;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .project-media a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(15,23,42,0.8);
+      border-color: var(--accent-soft);
+    }
+
+    .project-media img {
+      width: 100%;
+      display: block;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .project-media .wide {
+      grid-column: span 2;
+      height: 130px;
+    }
+
+    .project-media .hero {
+      grid-column: span 3;
+      height: 150px;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 6px 14px;
+      margin-top: 6px;
+      font-size: 0.82rem;
+    }
+
+    .spec-grid div {
+      padding: 5px 7px;
+      border-radius: 8px;
+      background: rgba(15,23,42,0.8);
+      border: 1px dashed #1f2937;
+    }
+
+    .side-card {
+      background: radial-gradient(circle at top left, #020617, #020617 55%);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .side-card h3 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .side-card p {
+      margin: 0 0 6px;
+    }
+
+    .side-card ul {
+      margin: 4px 0 0;
+      padding-left: 16px;
+    }
+
+    .side-card li {
+      margin-bottom: 4px;
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <img src="media/me.png" alt="Charalampos–Dionysios Trilivas" class="avatar">
+
+      <div class="hero-main">
+        <div class="subtitle">Engineering projects &amp; UAV systems</div>
+        <h1>Charalampos–Dionysios Trilivas</h1>
+        <p class="tagline">
+          Mechanical engineering student working on UAV systems, experimental aerospace projects and VTOL cargo design.
+          I treat each project as a small R&amp;D program: from concept and modelling to prototype, testing and documentation.
+        </p>
+        <div class="contact-grid">
+          <span>Email: <a href="mailto:trilivaschdennis@gmail.com">trilivaschdennis@gmail.com</a></span>
+          <span>LinkedIn: <a href="https://www.linkedin.com/in/charalampos-dionysios-trilivas-2382ab21a/" target="_blank" rel="noopener">Profile</a></span>
+          <span>GrabCAD: <a href="https://grabcad.com/babo.rabo-1" target="_blank" rel="noopener">Portfolio</a></span>
+        </div>
+        <div class="contact-grid">
+          <span class="pill"><strong>Location</strong> Patras, Greece</span>
+          <span class="pill"><strong>Discipline</strong> Mechanical Engineering</span>
+          <span class="pill"><strong>Focus</strong> UAVs · VTOL · R&amp;D</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN: PROJECTS -->
+      <div>
+        <section>
+          <div class="section-title">Projects</div>
+
+          <!-- Hyperion -->
+          <article class="project hyperion">
+            <div class="project-inner">
+              <div class="project-header">
+                <h2 class="project-title">Hyperion Drone Team &mdash; UAS Development</h2>
+                <div class="project-meta">Team Leader &amp; Founding Member &bull; 2023 &mdash; Present</div>
+              </div>
+              <div class="project-body">
+                <div class="project-text">
+                  <p>
+                    Hyperion is a student UAS development team at the University of the Peloponnese in Patras, Greece.
+                    The team designs and builds custom multirotor systems from scratch, giving students direct exposure to R&amp;D, integration and structured testing.
+                  </p>
+                  <p>
+                    Within its first six months, the team completed “AURORA”, a quadcopter capable of around 30&nbsp;minutes of flight and up to 10&nbsp;kg payload.
+                    Since then, we have iterated the platform, enhanced its stability and broadened its capabilities through competitions and continuous feedback.
+                  </p>
+                  <ul>
+                    <li>Defined the initial mission concept focusing on fire‑fighting and emergency support.</li>
+                    <li>Contributed to architecture decisions and flight‑controller selection through hands‑on evaluation.</li>
+                    <li>Coordinated build and test activities with attention to safety and repeatability.</li>
+                    <li>Helped develop a YOLO‑based AI detection system capable of identifying human targets at long range.</li>
+                    <li>Participated in IMAV&nbsp;2023 (Aachen) preparations and in local innovation competitions, earning awards in entrepreneurship and green innovation.</li>
+                    <li>Supported improvements in test ergonomics (PID tuning workflow, RC display integration, dedicated PID test rig).</li>
+                    <li>Involved in sponsorship outreach, contact with industry experts and participation in defense and tech events.</li>
+                  </ul>
+                  <p>
+                    The current version, “AURORA&nbsp;3”, is entering a new test campaign focusing on autonomy, energy efficiency and readiness for future competitions such as IMAV&nbsp;2026 in France.
+                  </p>
+                  <div class="project-tags">
+                    <span>Student UAS team</span>
+                    <span>Custom multirotor design</span>
+                    <span>AI human detection</span>
+                    <span>Flight testing</span>
+                    <span>Team coordination</span>
+                  </div>
+                </div>
+                <div class="project-media">
+                  <!-- Hyperion: μαζεμένο, με λογική σειρά -->
+                  <a href="media/image2.jpg" target="_blank" class="hero">
+                    <img src="media/image2.jpg" alt="Hyperion Aurora drone – main view">
+                  </a>
+                  <a href="media/image5.jpeg" target="_blank" class="wide">
+                    <img src="media/image5.jpeg" alt="Hyperion flight test – highlighted">
+                  </a>
+                  <a href="media/image3.jpg" target="_blank">
+                    <img src="media/image3.jpg" alt="Hyperion UAV test setup">
+                  </a>
+                  <a href="media/image6.jpeg" target="_blank">
+                    <img src="media/image6.jpeg" alt="Hyperion field test">
+                  </a>
+                  <a href="media/image4.png" target="_blank">
+                    <img src="media/image4.png" alt="Hyperion team with drone">
+                  </a>
+                  <a href="media/image22.jpg" target="_blank" class="wide">
+                    <img src="media/image22.jpg" alt="Hyperion presentation / event">
+                  </a>
+                  <a href="media/image17.png" target="_blank">
+                    <img src="media/image17.png" alt="Hyperion detail render">
+                  </a>
+                  <a href="media/image18.png" target="_blank">
+                    <img src="media/image18.png" alt="Hyperion additional view">
+                  </a>
+                  <a href="media/image19.png" target="_blank">
+                    <img src="media/image19.png" alt="Hyperion concept / graphic">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- HDT-333 (Diploma) -->
+          <article class="project">
+            <div class="project-inner">
+              <div class="project-header">
+                <h2 class="project-title">HDT‑333 &mdash; VTOL Cargo UAV</h2>
+                <div class="project-meta">Diploma Thesis &bull; Concept, Design &amp; Prototype</div>
+              </div>
+              <div class="project-body">
+                <div class="project-text">
+                  <p>
+                    The HDT‑333 is a VTOL cargo UAV designed for parcel delivery and same‑day logistics applications.
+                    The work covered system architecture, structural and aerodynamic design, performance estimation and a 1:6‑scale prototype to validate key assumptions.
+                  </p>
+                  <p>
+                    The concept combines a tandem‑wing configuration, hybrid propulsion and a modular cargo bay, aiming to offer efficient, safe and flexible logistics operations.
+                  </p>
+
+                  <div class="spec-grid">
+                    <div><strong>Configuration</strong><br>VTOL with tandem‑wing layout for urban and interurban missions.</div>
+                    <div><strong>Dimensions</strong><br>≈3&nbsp;m overall length, 2.3&nbsp;m span per wing, 1.92&nbsp;m² total wing area.</div>
+                    <div><strong>Structure</strong><br>Carbon‑fibre (Twill 3K) primary structure for stiffness and low weight.</div>
+                    <div><strong>Propulsion</strong><br>Hybrid system: 23&nbsp;kW gasoline generator + 24S HV Li‑ion packs.</div>
+                    <div><strong>Motor layout</strong><br>Nine motors: 8 lift motors (octocopter) + 1 rear cruise motor.</div>
+                    <div><strong>Payload</strong><br>50&nbsp;kg payload, ≈0.42&nbsp;m³ internal cargo volume.</div>
+                    <div><strong>Performance</strong><br>MTOW 240&nbsp;kg, ≈190&nbsp;kg empty, ≈100&nbsp;km/h cruise, ≈67&nbsp;min endurance.</div>
+                    <div><strong>Safety</strong><br>High climb rate, dual parachute system, Pixhawk‑6C and autonomous navigation.</div>
+                  </div>
+
+                  <div class="project-tags">
+                    <span>VTOL design</span>
+                    <span>Hybrid propulsion</span>
+                    <span>Carbon‑fibre structure</span>
+                    <span>Logistics</span>
+                  </div>
+                </div>
+                <div class="project-media">
+                  <a href="media/image7.png" target="_blank" class="hero">
+                    <img src="media/image7.png" alt="HDT‑333 overall render">
+                  </a>
+                  <a href="media/image8.png" target="_blank">
+                    <img src="media/image8.png" alt="HDT‑333 structural model">
+                  </a>
+                  <a href="media/image9.png" target="_blank" class="wide">
+                    <img src="media/image9.png" alt="HDT‑333 aerodynamic analysis – highlighted">
+                  </a>
+                  <a href="media/image10.jpeg" target="_blank" class="wide">
+                    <img src="media/image10.jpeg" alt="HDT‑333 prototype overview – highlighted">
+                  </a>
+                  <a href="media/image20.jpg" target="_blank">
+                    <img src="media/image20.jpg" alt="HDT‑333 prototype detail – key view">
+                  </a>
+                  <a href="media/image21.jpg" target="_blank">
+                    <img src="media/image21.jpg" alt="HDT‑333 ground test – key view">
+                  </a>
+                  <a href="media/image23.png" target="_blank">
+                    <img src="media/image23.png" alt="HDT‑333 design visualization">
+                  </a>
+                  <a href="media/image24.png" target="_blank">
+                    <img src="media/image24.png" alt="HDT‑333 design visualization 2">
+                  </a>
+                  <a href="media/image25.png" target="_blank">
+                    <img src="media/image25.png" alt="HDT‑333 additional view">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Infinity Touch -->
+          <article class="project">
+            <div class="project-inner">
+              <div class="project-header">
+                <h2 class="project-title">Infinity Touch &mdash; Touching the Stratosphere</h2>
+                <div class="project-meta">Experimental Capsule &bull; 2021</div>
+              </div>
+              <div class="project-body">
+                <div class="project-text">
+                  <p>
+                    Infinity Touch was an experimental high‑altitude project aiming to reach the lower stratosphere with a helium weather balloon and a custom capsule.
+                    Several capsule iterations refined internal layout, equipment integration and overall reliability.
+                  </p>
+                  <ul>
+                    <li>Developed multiple capsule designs to accommodate cameras, power supplies and communication hardware.</li>
+                    <li>Integrated cameras to capture live footage and mission data throughout the ascent.</li>
+                    <li>Used a dedicated power and communication setup for tracking and data relay.</li>
+                    <li>Designed a custom parachute triggered solely by aerodynamic forces during descent.</li>
+                    <li>Prepared a flight plan and coordinated flight permissions with the Hellenic Civil Aviation Authority (HCAA).</li>
+                  </ul>
+                  <p>
+                    On 17&nbsp;October&nbsp;2021, the capsule reached an altitude of about 30&nbsp;km over a 2.5‑hour flight.
+                    After crossing the Corinthian Gulf, it safely landed in the sea near Antikyra, validating the overall concept and planning.
+                  </p>
+                  <div class="project-tags">
+                    <span>High‑altitude balloon</span>
+                    <span>Experimental systems</span>
+                    <span>Flight planning</span>
+                  </div>
+                </div>
+                <div class="project-media">
+                  <a href="media/image11.jpeg" target="_blank">
+                    <img src="media/image11.jpeg" alt="Infinity Touch capsule preparation">
+                  </a>
+                  <a href="media/image12.jpeg" target="_blank" class="wide">
+                    <img src="media/image12.jpeg" alt="Infinity Touch launch phase – highlighted">
+                  </a>
+                  <a href="media/image13.jpg" target="_blank" class="hero">
+                    <img src="media/image13.jpg" alt="Infinity Touch ascent">
+                  </a>
+                  <a href="media/image14.png" target="_blank">
+                    <img src="media/image14.png" alt="Infinity Touch mission visuals">
+                  </a>
+                  <a href="media/image15.png" target="_blank" class="wide">
+                    <img src="media/image15.png" alt="Infinity Touch key frame – highlighted">
+                  </a>
+                  <a href="media/image26.png" target="_blank">
+                    <img src="media/image26.png" alt="Infinity Touch capsule recovery / result – highlighted">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: EDITORIAL / PROFILE -->
+      <aside>
+        <section>
+          <div class="section-title">Profile</div>
+          <div class="side-card">
+            <h3>Short overview</h3>
+            <p>
+              I am a mechanical engineering student interested in how ideas move from sketches and calculations to flying prototypes and real use cases.
+              My work so far has been centred on UAVs, experimental flight projects and logistics‑oriented VTOL concepts.
+            </p>
+            <p>
+              I enjoy taking responsibility for small parts of a larger project: coordinating tasks, keeping track of tests and documenting what we learn so we can iterate faster and more safely.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">Highlights</div>
+          <div class="side-card">
+            <h3>Selected achievements</h3>
+            <ul>
+              <li>Co‑founded and helped lead a student UAS team from concept to multiple working drones.</li>
+              <li>Contributed to a high‑altitude capsule mission reaching about 30&nbsp;km in the lower stratosphere.</li>
+              <li>Designed a VTOL cargo UAV concept with hybrid propulsion and a 1:6‑scale prototype as a diploma thesis project.</li>
+              <li>Participated in innovation and entrepreneurship competitions, earning awards for UAV‑related concepts.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">Skills &amp; languages</div>
+          <div class="side-card">
+            <h3>Key skills</h3>
+            <ul>
+              <li>Multirotor and UAV system development.</li>
+              <li>Experimental flight and high‑altitude projects.</li>
+              <li>CAD modelling and 3D printing.</li>
+              <li>Basic project coordination and reporting.</li>
+              <li>Testing, troubleshooting and PID tuning.</li>
+            </ul>
+            <h3 style="margin-top:10px;">Languages</h3>
+            <ul>
+              <li>Greek &mdash; Native</li>
+              <li>English &mdash; B2</li>
+              <li>French &mdash; B2</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">Other work</div>
+          <div class="side-card">
+            <h3>CAD &amp; product design</h3>
+            <p>
+              Alongside my main projects, I work on smaller CAD and product‑design tasks:
+              mechanical parts, functional prototypes and assemblies prepared for 3D printing
+              or conventional manufacturing.
+            </p>
+            <p>
+              These projects help me stay close to practical constraints such as tolerances,
+              assembly and printability, while experimenting with different design ideas.
+            </p>
+            <p style="margin-top:6px;">
+              A broader selection is available on my GrabCAD profile:<br>
+              <a href="https://grabcad.com/babo.rabo-1" target="_blank" rel="noopener">
+                grabcad.com/babo.rabo-1
+              </a>
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">Current focus</div>
+          <div class="side-card">
+            <h3>Next steps</h3>
+            <p>
+              I am currently looking for an Erasmus+ traineeship or early‑career role where I can contribute to engineering projects while building stronger skills in project coordination, technical documentation and operations.
+            </p>
+            <p>
+              I am particularly interested in UAS, logistics, robotics and technology‑driven environments where prototypes and ideas are turned into practical solutions.
+            </p>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <footer>
+      Last updated: 2026 &middot; Project‑oriented profile for traineeship and early‑career opportunities.
+    </footer>
+  </div>
+</body>
+</html>
