@@ -19,7 +19,10 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1e293b, #020617 55%);
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(147,51,234,0.12), transparent 55%),
+        #020617;
       color: var(--text);
       line-height: 1.7;
     }
@@ -47,7 +50,7 @@
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      background: #111827;
+      background: #020617;
       border: 2px solid var(--accent-soft);
       object-fit: cover;
     }
@@ -210,7 +213,6 @@
       background: rgba(15,23,42,0.9);
     }
 
-    /* εικόνες – κοινός, “συμμαζεμένος” κανόνας */
     .project-media {
       display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
@@ -278,7 +280,7 @@
     }
 
     .side-card {
-      background: radial-gradient(circle at top left, #020617, #020617 55%);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
       border-radius: 14px;
       border: 1px solid var(--border);
       padding: 14px 16px;
@@ -352,30 +354,30 @@
             <div class="project-inner">
               <div class="project-header">
                 <h2 class="project-title">Hyperion Drone Team &mdash; UAS Development</h2>
-                <div class="project-meta">Team Leader &amp; Founding Member &bull; 2023 &mdash; Present</div>
+                <div class="project-meta">Team leader &amp; founding member &bull; 2023 &mdash; Present</div>
               </div>
               <div class="project-body">
                 <div class="project-text">
                   <p>
                     Hyperion is a student UAS development team at the University of the Peloponnese in Patras, Greece.
-                    The team designs and builds custom multirotor systems from scratch, giving students direct exposure to R&amp;D, integration and structured testing.
+                    The team designs and builds custom multirotor drones from scratch, giving students hands‑on exposure to R&amp;D, integration and flight testing alongside their studies.
                   </p>
                   <p>
-                    Within its first six months, the team completed “AURORA”, a quadcopter capable of around 30&nbsp;minutes of flight and up to 10&nbsp;kg payload.
-                    Since then, we have iterated the platform, enhanced its stability and broadened its capabilities through competitions and continuous feedback.
+                    Within the first six months we designed and built our first drone, “AURORA”, without previous experience, and since then we have been iterating both the platform and our processes through competitions and continuous testing.
                   </p>
                   <ul>
-                    <li>Defined the initial mission concept focusing on fire‑fighting and emergency support.</li>
-                    <li>Contributed to architecture decisions and flight‑controller selection through hands‑on evaluation.</li>
-                    <li>Coordinated build and test activities with attention to safety and repeatability.</li>
-                    <li>Helped develop a YOLO‑based AI detection system capable of identifying human targets at long range.</li>
-                    <li>Participated in IMAV&nbsp;2023 (Aachen) preparations and in local innovation competitions, earning awards in entrepreneurship and green innovation.</li>
-                    <li>Supported improvements in test ergonomics (PID tuning workflow, RC display integration, dedicated PID test rig).</li>
-                    <li>Involved in sponsorship outreach, contact with industry experts and participation in defense and tech events.</li>
+                    <li>Defined the initial mission concept focusing on fire‑fighting and emergency‑support scenarios.</li>
+                    <li>Evaluated different hardware options (microcontrollers and commercial flight controllers) and selected the most suitable architecture.</li>
+                    <li>Built “AURORA”, a quadcopter capable of flying about 30 minutes and carrying roughly 10 kg of payload.</li>
+                    <li>Developed a YOLO‑based AI detection system, trained on 3,000+ images, able to detect human‑shaped targets at ~40 m during IMAV 2023 preparation.</li>
+                    <li>Earned 1st place in the Entrepreneurship and Innovation Competition (ICT category) and 2nd place in the Green Ideathon (2023).</li>
                   </ul>
-                  <p>
-                    The current version, “AURORA&nbsp;3”, is entering a new test campaign focusing on autonomy, energy efficiency and readiness for future competitions such as IMAV&nbsp;2026 in France.
-                  </p>
+                  <ul>
+                    <li>Built two new AURORA versions and a trial product concept (“Sonic Boom”) to improve production and system engineering.</li>
+                    <li>Improved test ergonomics (PID tuning workflow, use of an RC screen instead of a laptop in the field, dedicated PID test rig).</li>
+                    <li>Secured new sponsorships and strategic partners and expanded our network with industry experts and faculty.</li>
+                    <li>Prepared “AURORA 3” for a new test campaign on autonomy and energy consumption while exploring participation in IMAV 2026 in France.</li>
+                  </ul>
                   <div class="project-tags">
                     <span>Student UAS team</span>
                     <span>Custom multirotor design</span>
@@ -385,7 +387,6 @@
                   </div>
                 </div>
                 <div class="project-media">
-                  <!-- Hyperion: μαζεμένο, με λογική σειρά -->
                   <a href="media/image2.jpg" target="_blank" class="hero">
                     <img src="media/image2.jpg" alt="Hyperion Aurora drone – main view">
                   </a>
@@ -423,29 +424,28 @@
             <div class="project-inner">
               <div class="project-header">
                 <h2 class="project-title">HDT‑333 &mdash; VTOL Cargo UAV</h2>
-                <div class="project-meta">Diploma Thesis &bull; Concept, Design &amp; Prototype</div>
+                <div class="project-meta">Diploma thesis &bull; Concept, design &amp; prototype</div>
               </div>
               <div class="project-body">
                 <div class="project-text">
                   <p>
-                    The HDT‑333 is a VTOL cargo UAV designed for parcel delivery and same‑day logistics applications.
-                    The work covered system architecture, structural and aerodynamic design, performance estimation and a 1:6‑scale prototype to validate key assumptions.
+                    The HDT‑333 is a vertical take‑off and landing (VTOL) cargo UAV designed for high‑efficiency parcel delivery and same‑day logistics.
+                    The project covered system architecture, hybrid propulsion design, full‑scale performance estimation and the development of a 1:6‑scale prototype to validate flight behaviour and subsystem integration.
                   </p>
                   <p>
-                    The concept combines a tandem‑wing configuration, hybrid propulsion and a modular cargo bay, aiming to offer efficient, safe and flexible logistics operations.
+                    The work combined aerodynamic analysis, carbon‑fibre structural design and techno‑economic evaluation to assess the operational feasibility of the concept.
                   </p>
-
-                  <div class="spec-grid">
-                    <div><strong>Configuration</strong><br>VTOL with tandem‑wing layout for urban and interurban missions.</div>
-                    <div><strong>Dimensions</strong><br>≈3&nbsp;m overall length, 2.3&nbsp;m span per wing, 1.92&nbsp;m² total wing area.</div>
-                    <div><strong>Structure</strong><br>Carbon‑fibre (Twill 3K) primary structure for stiffness and low weight.</div>
-                    <div><strong>Propulsion</strong><br>Hybrid system: 23&nbsp;kW gasoline generator + 24S HV Li‑ion packs.</div>
-                    <div><strong>Motor layout</strong><br>Nine motors: 8 lift motors (octocopter) + 1 rear cruise motor.</div>
-                    <div><strong>Payload</strong><br>50&nbsp;kg payload, ≈0.42&nbsp;m³ internal cargo volume.</div>
-                    <div><strong>Performance</strong><br>MTOW 240&nbsp;kg, ≈190&nbsp;kg empty, ≈100&nbsp;km/h cruise, ≈67&nbsp;min endurance.</div>
-                    <div><strong>Safety</strong><br>High climb rate, dual parachute system, Pixhawk‑6C and autonomous navigation.</div>
-                  </div>
-
+                  <ul>
+                    <li>VTOL configuration with tandem‑wing layout for flexible urban and interurban cargo missions.</li>
+                    <li>Overall length ~3 m, carbon‑fibre (Twill 3K) primary structure and 1.92 m² total wing area (2.3 m span per wing).</li>
+                    <li>Hybrid propulsion: 23 kW gasoline generator plus 24S HV Li‑ion battery packs (≈14.3 kWh total).</li>
+                    <li>Nine‑motor layout with eight lift motors (octocopter) and one rear cruise motor, supporting up to 50 kg payload and ~0.42 m³ cargo volume.</li>
+                    <li>Estimated MTOW 240 kg, ~190 kg empty weight, cruise speed ~100 km/h and ~67 minutes endurance under hybrid operation.</li>
+                  </ul>
+                  <ul>
+                    <li>High climb rate and dual parachute system for safety and emergency recovery.</li>
+                    <li>Pixhawk‑6C flight controller with autonomous navigation and safety‑oriented flight modes.</li>
+                  </ul>
                   <div class="project-tags">
                     <span>VTOL design</span>
                     <span>Hybrid propulsion</span>
@@ -491,25 +491,28 @@
             <div class="project-inner">
               <div class="project-header">
                 <h2 class="project-title">Infinity Touch &mdash; Touching the Stratosphere</h2>
-                <div class="project-meta">Experimental Capsule &bull; 2021</div>
+                <div class="project-meta">Experimental capsule &bull; 2021</div>
               </div>
               <div class="project-body">
                 <div class="project-text">
                   <p>
-                    Infinity Touch was an experimental high‑altitude project aiming to reach the lower stratosphere with a helium weather balloon and a custom capsule.
-                    Several capsule iterations refined internal layout, equipment integration and overall reliability.
+                    Infinity Touch was an experimental high‑altitude balloon project aimed at reaching the lower stratosphere with a custom capsule.
+                    Over several iterations we refined the internal layout, payload integration and overall reliability, gradually increasing the amount of onboard equipment.
+                  </p>
+                  <p>
+                    The final capsule, “HAEPHAESTUS II”, carried multiple cameras, communication devices and a custom parachute system designed to deploy purely from aerodynamic forces during descent.
                   </p>
                   <ul>
-                    <li>Developed multiple capsule designs to accommodate cameras, power supplies and communication hardware.</li>
-                    <li>Integrated cameras to capture live footage and mission data throughout the ascent.</li>
-                    <li>Used a dedicated power and communication setup for tracking and data relay.</li>
-                    <li>Designed a custom parachute triggered solely by aerodynamic forces during descent.</li>
-                    <li>Prepared a flight plan and coordinated flight permissions with the Hellenic Civil Aviation Authority (HCAA).</li>
+                    <li>Designed and built around five capsule versions with improved internal space management and equipment mounting.</li>
+                    <li>Integrated two action cameras and one security camera for live footage and mission documentation.</li>
+                    <li>Used a power bank and a mobile phone with SIM card to support data transmission and location tracking.</li>
+                    <li>Implemented a helium‑filled weather balloon and a custom‑made parachute for recovery.</li>
+                    <li>Prepared a flight plan and obtained permission from the Hellenic Civil Aviation Authority (HCAA).</li>
                   </ul>
-                  <p>
-                    On 17&nbsp;October&nbsp;2021, the capsule reached an altitude of about 30&nbsp;km over a 2.5‑hour flight.
-                    After crossing the Corinthian Gulf, it safely landed in the sea near Antikyra, validating the overall concept and planning.
-                  </p>
+                  <ul>
+                    <li>On 17/10/2021 completed a ~2.5‑hour flight reaching ~30 km altitude.</li>
+                    <li>After crossing the Corinthian Gulf, the capsule landed safely at sea near Antikyra, validating the concept and planning.</li>
+                  </ul>
                   <div class="project-tags">
                     <span>High‑altitude balloon</span>
                     <span>Experimental systems</span>
@@ -542,7 +545,7 @@
         </section>
       </div>
 
-      <!-- RIGHT COLUMN: EDITORIAL / PROFILE -->
+      <!-- RIGHT COLUMN: PROFILE / OTHER WORK -->
       <aside>
         <section>
           <div class="section-title">Profile</div>
@@ -564,7 +567,7 @@
             <h3>Selected achievements</h3>
             <ul>
               <li>Co‑founded and helped lead a student UAS team from concept to multiple working drones.</li>
-              <li>Contributed to a high‑altitude capsule mission reaching about 30&nbsp;km in the lower stratosphere.</li>
+              <li>Contributed to a high‑altitude capsule mission reaching about 30 km in the lower stratosphere.</li>
               <li>Designed a VTOL cargo UAV concept with hybrid propulsion and a 1:6‑scale prototype as a diploma thesis project.</li>
               <li>Participated in innovation and entrepreneurship competitions, earning awards for UAV‑related concepts.</li>
             </ul>
@@ -592,9 +595,9 @@
         </section>
 
         <section>
-          <div class="section-title">Other work</div>
+          <div class="section-title">Other CAD work</div>
           <div class="side-card">
-            <h3>CAD &amp; product design</h3>
+            <h3>Other CAD &amp; product design</h3>
             <p>
               Alongside my main projects, I work on smaller CAD and product‑design tasks:
               mechanical parts, functional prototypes and assemblies prepared for 3D printing
@@ -610,6 +613,22 @@
                 grabcad.com/babo.rabo-1
               </a>
             </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">Military service</div>
+          <div class="side-card">
+            <h3>Hellenic Army (Hellenic Force in Cyprus – ELDYK)</h3>
+            <p>
+              May 2025 – December 2025 (completed mandatory service).
+              Combined operational duties with technical and support tasks in a demanding field environment.
+            </p>
+            <ul>
+              <li>Tank driver, supporting daily operations, training activities and field exercises.</li>
+              <li>Assisted with office administration and controlled handling of service documentation.</li>
+              <li>Operated a small UAV (commercial‑type drone) during field exercises for area surveillance and patrol support, and produced visual material for post‑exercise review and training use.</li>
+            </ul>
           </div>
         </section>
 
