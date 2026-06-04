@@ -277,6 +277,11 @@
       transition: transform 0.4s ease;
     }
 
+    .project-hero-wrap.contain img {
+      object-fit: contain;
+      background: #020617;
+    }
+
     .project-hero-wrap:hover img { transform: scale(1.02); }
 
     .project-hero-overlay {
@@ -435,15 +440,16 @@
 
     .photo-grid img {
       width: 100%;
-      height: 90px;
+      height: 110px;
       object-fit: cover;
+      object-position: center top;
       display: block;
     }
 
     .photo-grid .span2 { grid-column: span 2; }
-    .photo-grid .span2 img { height: 100px; }
+    .photo-grid .span2 img { height: 110px; }
     .photo-grid .span3 { grid-column: span 3; }
-    .photo-grid .span3 img { height: 130px; }
+    .photo-grid .span3 img { height: 110px; }
 
     /* ── TAGS ── */
     .tags {
@@ -533,9 +539,9 @@
     }
 
     .mil-grid a:hover { border-color: rgba(56,189,248,0.3); transform: translateY(-1px); }
-    .mil-grid img { width: 100%; height: 90px; object-fit: cover; display: block; }
+    .mil-grid img { width: 100%; height: 110px; object-fit: cover; object-position: center top; display: block; }
     .mil-grid .span2 { grid-column: span 2; }
-    .mil-grid .span2 img { height: 100px; }
+    .mil-grid .span2 img { height: 110px; }
 
     /* ── LIGHTBOX ── */
     #lightbox {
@@ -743,7 +749,7 @@
           <div class="project-header" style="border-bottom:none;padding-bottom:0;">
             <span class="badge" style="margin-left:auto;">3 Distinctions</span>
           </div>
-          <div class="project-hero-wrap" onclick="openLightbox('media/logo.jpg')">
+          <div class="project-hero-wrap contain" onclick="openLightbox('media/logo.jpg')">
             <img src="media/logo.jpg" alt="Hyperion Drone Team logo">
             <div class="project-hero-overlay">
               <div class="project-hero-title">Hyperion Drone Team — UAS Development</div>
@@ -772,9 +778,11 @@
                   <li>Sonic Boom: full drone build completed in <strong>15 days</strong> — standard cycle ~6 months.</li>
                 </ul>
                 <div style="margin-top:10px;">
-                  <div class="photo-grid cols2" style="padding:0;">
+                  <div class="photo-grid" style="padding:0;">
+                    <a onclick="openLightbox('media/competition2.jpg')" class="span3"><img src="media/competition2.jpg" alt="Ideathon Patras Winner"></a>
                     <a onclick="openLightbox('media/competition.jpg')" class="span2"><img src="media/competition.jpg" alt="Competition"></a>
-                    <a onclick="openLightbox('media/competition2.jpg')" class="span2"><img src="media/competition2.jpg" alt="Competition 2"></a>
+                    <a onclick="openLightbox('media/infinity-patch.png')"><img src="media/infinity-patch.png" alt="Operation Infinity Touch Mission Patch"></a>
+                    <a onclick="openLightbox('media/image22.jpg')" class="span3"><img src="media/image22.jpg" alt="IMAV 2023 team"></a>
                   </div>
                 </div>
               </div>
@@ -824,8 +832,8 @@
           <div class="project-header" style="border-bottom:none;padding-bottom:0;">
             <span class="badge gold" style="margin-left:auto;">Grade 10/10</span>
           </div>
-          <div class="project-hero-wrap" onclick="openLightbox('media/image7.png')">
-            <img src="media/image7.png" alt="HDT-333 render">
+          <div class="project-hero-wrap" onclick="openLightbox('media/image23.png')">
+            <img src="media/image23.png" alt="HDT-333 cinematic render">
             <div class="project-hero-overlay">
               <div class="project-hero-title">HDT‑333 — VTOL Cargo UAV</div>
               <div class="project-hero-meta">Diploma thesis · Concept, design &amp; prototype · 2026</div>
@@ -875,11 +883,12 @@
                 </ul>
                 <div style="margin-top:10px;">
                   <div class="photo-grid" style="padding:0;">
+                    <a onclick="openLightbox('media/image20.jpg')" class="span2"><img src="media/image20.jpg" alt="Prototype test"></a>
+                    <a onclick="openLightbox('media/image21.jpg')"><img src="media/image21.jpg" alt="Fuselage"></a>
                     <a onclick="openLightbox('media/image8.png')"><img src="media/image8.png" alt="Structural"></a>
-                    <a onclick="openLightbox('media/image20.jpg')"><img src="media/image20.jpg" alt="Detail"></a>
-                    <a onclick="openLightbox('media/image23.png')"><img src="media/image23.png" alt="Viz"></a>
-                    <a onclick="openLightbox('media/image24.png')" class="span2"><img src="media/image24.png" alt="Viz2"></a>
+                    <a onclick="openLightbox('media/image24.png')"><img src="media/image24.png" alt="Viz"></a>
                     <a onclick="openLightbox('media/image25.png')"><img src="media/image25.png" alt="View"></a>
+                    <a onclick="openLightbox('media/image9.png')"><img src="media/image9.png" alt="COMSOL"></a>
                   </div>
                 </div>
               </div>
@@ -900,8 +909,8 @@
           <div class="project-header" style="border-bottom:none;padding-bottom:0;">
             <span class="badge" style="margin-left:auto;">Mission Complete ✓</span>
           </div>
-          <div class="project-hero-wrap" onclick="openLightbox('media/image13.jpg')">
-            <img src="media/image13.jpg" alt="Capsule at altitude">
+          <div class="project-hero-wrap contain" onclick="openLightbox('media/infinity-patch.png')">
+            <img src="media/infinity-patch.png" alt="Operation Infinity Touch Mission Patch">
             <div class="project-hero-overlay">
               <div class="project-hero-title">Infinity Touch — Touching the Stratosphere</div>
               <div class="project-hero-meta">Personal R&amp;D project · 2021</div>
@@ -948,10 +957,11 @@
                   <li>Concept and planning fully validated — all systems performed as designed.</li>
                 </ul>
                 <div style="margin-top:10px;">
-                  <div class="photo-grid cols2" style="padding:0;">
+                  <div class="photo-grid" style="padding:0;">
+                    <a onclick="openLightbox('media/image26.png')" class="span3"><img src="media/image26.png" alt="Balloon launch"></a>
                     <a onclick="openLightbox('media/image12.jpeg')" class="span2"><img src="media/image12.jpeg" alt="Launch"></a>
                     <a onclick="openLightbox('media/image14.png')"><img src="media/image14.png" alt="Visuals"></a>
-                    <a onclick="openLightbox('media/image26.png')"><img src="media/image26.png" alt="Recovery"></a>
+                    <a onclick="openLightbox('media/image15.png')" class="span3"><img src="media/image15.png" alt="Stratosphere view"></a>
                   </div>
                 </div>
               </div>
