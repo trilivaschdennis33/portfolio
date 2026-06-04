@@ -11,335 +11,596 @@
     :root {
       --bg: #020617;
       --accent: #38bdf8;
-      --accent-soft: rgba(56,189,248,0.18);
-      --accent-dim: rgba(56,189,248,0.08);
+      --accent-soft: rgba(56,189,248,0.15);
+      --accent-dim: rgba(56,189,248,0.07);
       --text: #e5e7eb;
       --text-soft: #9ca3af;
-      --border: #1f2937;
-      --card-bg: rgba(15,23,42,0.97);
+      --border: #1e2d3d;
+      --card-bg: rgba(10,20,40,0.97);
+      --card-bg2: rgba(15,25,45,0.95);
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
       font-family: 'Outfit', system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(56,189,248,0.10), transparent 50%),
-        radial-gradient(circle at 80% 90%, rgba(147,51,234,0.10), transparent 50%),
-        #020617;
+      background: #020617;
       color: var(--text);
       line-height: 1.7;
+      min-height: 100vh;
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── GRADIENT ORBS ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 600px; height: 600px; background: rgba(56,189,248,0.06); top: -200px; left: -100px; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(139,92,246,0.06); bottom: -150px; right: -100px; }
+
+    a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.8; text-decoration: underline; }
 
     .page {
-      max-width: 1120px;
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 32px 16px 64px;
+      padding: 40px 20px 80px;
+      position: relative;
+      z-index: 1;
     }
 
+    /* ── HEADER ── */
     header {
       display: flex;
       flex-wrap: wrap;
-      gap: 24px;
+      gap: 32px;
       align-items: center;
-      margin-bottom: 32px;
-      padding-bottom: 16px;
+      margin-bottom: 48px;
+      padding-bottom: 32px;
       border-bottom: 1px solid var(--border);
     }
 
+    .avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
     .avatar {
-      width: 150px;
-      height: 150px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      background: #020617;
-      border: 2px solid var(--accent-soft);
       object-fit: cover;
+      border: 1.5px solid var(--border);
+      display: block;
     }
 
-    .hero-main { flex: 1; min-width: 260px; }
-
-    h1 {
-      margin: 0 0 10px;
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
+    .avatar-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid rgba(56,189,248,0.3);
+      animation: pulse-ring 3s ease-in-out infinite;
     }
+
+    @keyframes pulse-ring {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+
+    .hero-main { flex: 1; min-width: 280px; }
 
     .subtitle {
       font-family: 'DM Mono', monospace;
-      font-size: 0.82rem;
+      font-size: 0.75rem;
       color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 8px;
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #e5e7eb 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .tagline {
-      font-size: 0.97rem;
+      font-size: 0.95rem;
       color: var(--text-soft);
-      max-width: 640px;
-      margin: 0 0 10px;
+      max-width: 600px;
+      margin-bottom: 16px;
+      line-height: 1.6;
     }
 
-    .contact-grid {
+    .contact-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px 22px;
-      margin-top: 6px;
-      font-size: 0.9rem;
+      gap: 8px 20px;
+      font-size: 0.875rem;
       color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    .contact-row a { color: var(--accent); }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.82rem;
-      padding: 4px 10px;
+      font-size: 0.78rem;
+      padding: 4px 12px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(15,23,42,0.9);
+      background: rgba(15,25,45,0.8);
+      font-family: 'DM Mono', monospace;
     }
 
-    .pill strong { color: var(--accent); }
+    .pill strong { color: var(--accent); font-weight: 500; }
 
+    /* ── LAYOUT ── */
     main {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
-      gap: 24px;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.2fr);
+      gap: 28px;
+      align-items: start;
     }
 
-    @media (max-width: 900px) {
-      main { grid-template-columns: minmax(0,1fr); }
+    @media (max-width: 920px) {
+      main { grid-template-columns: 1fr; }
     }
 
-    section { margin-bottom: 20px; }
-
-    .section-title {
+    .section-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.82rem;
-      letter-spacing: 0.16em;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--text-soft);
-      margin: 0 0 8px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── PROJECT CARD ── */
     .project {
-      position: relative;
-      border-radius: 16px;
-      margin-bottom: 18px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
       overflow: hidden;
-      border: 1px solid #111827;
-      background: radial-gradient(circle at top left, #020617, #020617 55%);
+      transition: border-color 0.3s;
     }
 
-    .project.hyperion::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("media/image19.png") center/cover no-repeat;
-      opacity: 0.06;
-      pointer-events: none;
-    }
-
-    .project-inner {
-      position: relative;
-      z-index: 1;
-      background: linear-gradient(145deg, rgba(2,6,23,0.96), rgba(15,23,42,0.96));
-    }
+    .project:hover { border-color: rgba(56,189,248,0.25); }
 
     .project-header {
-      padding: 16px 16px 10px;
-      border-bottom: 1px solid #111827;
+      padding: 20px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
     }
 
-    .project-title { margin: 0; font-size: 1.08rem; font-weight: 600; }
-    .project-meta { font-size: 0.82rem; color: var(--text-soft); margin-top: 4px; font-family: 'DM Mono', monospace; }
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
 
-    .project-body {
-      padding: 12px 16px 14px;
+    .project-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.76rem;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: rgba(56,189,248,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.2);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge.gold {
+      background: rgba(251,191,36,0.1);
+      color: #fbbf24;
+      border-color: rgba(251,191,36,0.2);
+    }
+
+    /* ── HERO IMAGE ── */
+    .project-hero {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.4s ease;
+    }
+
+    .project-hero:hover { transform: scale(1.02); }
+
+    /* ── DROPDOWNS ── */
+    .dropdowns { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
+
+    .dd-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.25s;
+    }
+
+    .dd-item:hover { border-color: rgba(56,189,248,0.3); }
+
+    .dd-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      text-align: left;
+      display: block;
+    }
+
+    .dd-preview {
+      position: relative;
+      height: 110px;
+      overflow: hidden;
+    }
+
+    .dd-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .dd-item:hover .dd-preview img { transform: scale(1.04); }
+
+    .dd-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(2,6,23,0.1) 0%, rgba(2,6,23,0.85) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px 14px;
+    }
+
+    .dd-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .dd-desc {
+      font-size: 0.76rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    .dd-arrow {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 22px;
+      height: 22px;
+      background: rgba(2,6,23,0.7);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--accent);
+      transition: transform 0.3s;
+    }
+
+    .dd-item.open .dd-arrow { transform: rotate(180deg); }
+
+    .dd-content {
+      display: none;
+      padding: 14px 16px;
+      background: rgba(5,12,28,0.9);
+      border-top: 1px solid var(--border);
+    }
+
+    .dd-item.open .dd-content { display: block; }
+
+    .dd-content p {
+      font-size: 0.875rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .dd-content ul {
+      padding-left: 16px;
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .dd-content li { margin-bottom: 5px; }
+
+    .dd-content strong { color: var(--text); }
+
+    /* ── PHOTO GRID ── */
+    .photo-grid {
+      padding: 0 20px 20px;
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
     }
 
-    @media (max-width: 800px) {
-      .project-body { grid-template-columns: minmax(0,1fr); }
+    .photo-grid.cols2 { grid-template-columns: repeat(2, 1fr); }
+
+    .photo-grid a {
+      display: block;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .project-text { font-size: 0.9rem; color: var(--text-soft); }
-    .project-text p { margin: 0 0 8px; }
-    .project-text ul { margin: 0 0 6px; padding-left: 18px; }
-    .project-text li { margin-bottom: 4px; }
+    .photo-grid a:hover {
+      border-color: rgba(56,189,248,0.3);
+      transform: translateY(-2px);
+    }
 
-    .project-tags {
-      margin-top: 8px;
+    .photo-grid img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-grid .span2 { grid-column: span 2; }
+    .photo-grid .span2 img { height: 100px; }
+    .photo-grid .span3 { grid-column: span 3; }
+    .photo-grid .span3 img { height: 130px; }
+
+    /* ── TAGS ── */
+    .tags {
+      padding: 0 20px 18px;
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      font-size: 0.78rem;
     }
 
-    .project-tags span {
-      padding: 3px 8px;
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      padding: 3px 9px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(15,23,42,0.9);
-      font-family: 'DM Mono', monospace;
-    }
-
-    .project-media {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 6px;
-      align-content: start;
-    }
-
-    @media (max-width: 900px) {
-      .project-media { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-
-    @media (max-width: 600px) {
-      .project-media { grid-template-columns: minmax(0,1fr); }
-    }
-
-    .project-media a {
-      display: block;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #111827;
-      background: #020617;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    }
-
-    .project-media a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(15,23,42,0.8);
-      border-color: var(--accent-soft);
-    }
-
-    .project-media img {
-      width: 100%;
-      display: block;
-      height: 120px;
-      object-fit: cover;
-    }
-
-    .project-media .wide { grid-column: span 2; }
-    .project-media .wide img { height: 130px; }
-    .project-media .hero { grid-column: span 3; }
-    .project-media .hero img { height: 150px; }
-
-    .spec-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 6px 14px;
-      margin-top: 6px;
-      font-size: 0.82rem;
-    }
-
-    .spec-grid div {
-      padding: 5px 7px;
-      border-radius: 8px;
-      background: rgba(15,23,42,0.8);
-      border: 1px dashed #1f2937;
-      font-family: 'DM Mono', monospace;
-    }
-
-    .side-card {
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      font-size: 0.9rem;
+      background: rgba(15,25,45,0.8);
       color: var(--text-soft);
     }
 
-    .side-card h3 { margin: 0 0 6px; font-size: 0.95rem; color: var(--text); font-weight: 600; }
-    .side-card p { margin: 0 0 6px; }
-    .side-card ul { margin: 4px 0 0; padding-left: 16px; }
-    .side-card li { margin-bottom: 4px; }
-
-    .highlight-item {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--border);
+    /* ── SIDEBAR CARDS ── */
+    .side-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 18px 18px;
+      margin-bottom: 16px;
+      font-size: 0.875rem;
+      color: var(--text-soft);
+      transition: border-color 0.3s;
     }
-    .highlight-item:last-child { border-bottom: none; }
-    .highlight-dot {
-      width: 6px;
-      height: 6px;
+
+    .side-card:hover { border-color: rgba(56,189,248,0.2); }
+
+    .side-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .side-card p { margin-bottom: 8px; line-height: 1.6; }
+
+    .side-card ul { padding-left: 16px; }
+    .side-card li { margin-bottom: 5px; }
+
+    /* ── HIGHLIGHTS ── */
+    .highlight-list { display: flex; flex-direction: column; gap: 0; }
+
+    .hl-item {
+      display: flex;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .hl-item:last-child { border-bottom: none; }
+
+    .hl-dot {
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--accent);
       margin-top: 8px;
       flex-shrink: 0;
     }
 
-    .military-photos {
+    /* ── MILITARY PHOTOS ── */
+    .mil-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 6px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
-    .military-photos a {
+    .mil-grid a {
       display: block;
-      border-radius: 8px;
+      border-radius: 7px;
       overflow: hidden;
-      border: 1px solid #111827;
-      transition: transform 0.15s ease, border-color 0.15s ease;
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .military-photos a:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent-soft);
+    .mil-grid a:hover { border-color: rgba(56,189,248,0.3); transform: translateY(-1px); }
+    .mil-grid img { width: 100%; height: 90px; object-fit: cover; display: block; }
+    .mil-grid .span2 { grid-column: span 2; }
+    .mil-grid .span2 img { height: 100px; }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(2,6,23,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
 
-    .military-photos img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      display: block;
+    #lightbox.active { display: flex; }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+      object-fit: contain;
     }
 
-    .military-photos .span2 { grid-column: span 2; }
-    .military-photos .span2 img { height: 110px; }
-
-    .badge {
-      display: inline-block;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      padding: 2px 7px;
-      border-radius: 4px;
-      background: rgba(56,189,248,0.12);
-      color: var(--accent);
-      border: 1px solid rgba(56,189,248,0.25);
-      margin-left: 6px;
-      vertical-align: middle;
+    #lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      background: rgba(15,25,45,0.9);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--text);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      z-index: 1001;
     }
 
+    #lightbox-close:hover {
+      background: rgba(56,189,248,0.15);
+      border-color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
     footer {
-      margin-top: 32px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--text-soft);
+      margin-top: 40px;
+      padding-top: 16px;
       border-top: 1px solid var(--border);
-      padding-top: 10px;
-      text-align: right;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in:nth-child(1) { animation-delay: 0.05s; }
+    .fade-in:nth-child(2) { animation-delay: 0.12s; }
+    .fade-in:nth-child(3) { animation-delay: 0.19s; }
+    .fade-in:nth-child(4) { animation-delay: 0.26s; }
+    .fade-in:nth-child(5) { animation-delay: 0.33s; }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .photo-grid { grid-template-columns: repeat(2,1fr); }
+      .photo-grid .span3 { grid-column: span 2; }
     }
   </style>
 </head>
 <body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
   <div class="page">
-    <header>
-      <img src="media/me.png" alt="Charalampos–Dionysios Trilivas" class="avatar">
+
+    <!-- HEADER -->
+    <header class="fade-in">
+      <div class="avatar-wrap">
+        <img src="media/me.png" alt="Charalampos–Dionysios Trilivas" class="avatar">
+        <div class="avatar-ring"></div>
+      </div>
       <div class="hero-main">
         <div class="subtitle">Engineering projects &amp; UAV systems</div>
         <h1>Charalampos–Dionysios Trilivas</h1>
@@ -347,12 +608,12 @@
           Mechanical engineer working on UAV systems, agricultural machinery production and VTOL cargo design.
           From concept and modelling to prototype, manufacturing and field testing.
         </p>
-        <div class="contact-grid">
+        <div class="contact-row">
           <span>Email: <a href="mailto:trilivaschdennis@gmail.com">trilivaschdennis@gmail.com</a></span>
-          <span>LinkedIn: <a href="https://www.linkedin.com/in/charalampos-dionysios-trilivas-2382ab21a/" target="_blank" rel="noopener">Profile</a></span>
-          <span>GrabCAD: <a href="https://grabcad.com/babo.rabo-1" target="_blank" rel="noopener">Portfolio</a></span>
+          <span>LinkedIn: <a href="https://www.linkedin.com/in/charalampos-dionysios-trilivas-2382ab21a/" target="_blank">Profile</a></span>
+          <span>GrabCAD: <a href="https://grabcad.com/babo.rabo-1" target="_blank">Portfolio</a></span>
         </div>
-        <div class="contact-grid" style="margin-top:8px;">
+        <div class="pills">
           <span class="pill"><strong>Location</strong> Patras, Greece</span>
           <span class="pill"><strong>Discipline</strong> Mechanical Engineering</span>
           <span class="pill"><strong>Focus</strong> UAVs · Agri-tech · Manufacturing</span>
@@ -361,373 +622,429 @@
     </header>
 
     <main>
-      <!-- LEFT COLUMN -->
+      <!-- LEFT: PROJECTS -->
       <div>
-        <section>
-          <div class="section-title">Projects</div>
+        <div class="section-label">Projects</div>
 
-          <!-- AVGEROS -->
-          <article class="project">
-            <div class="project-inner">
-              <div class="project-header">
-                <h2 class="project-title">Avgeros LLC &mdash; Agricultural Machinery Production <span class="badge">Internship</span></h2>
-                <div class="project-meta">Production & manufacturing · April – May 2026</div>
-              </div>
-              <div class="project-body">
-                <div class="project-text">
-                  <p>
-                    Hands-on internship at a Greek agricultural machinery manufacturer specialising in patented,
-                    remote-controlled olive harvesting machines — the <strong style="color:var(--text);">«Aiolos»</strong> series.
-                    Worked across the full production cycle in a non-automated, small-batch environment.
-                  </p>
-                  <ul>
-                    <li>Participated in the production of <strong style="color:var(--text);">~40 units</strong> (30 mini + 10 full-size Aiolos) over 2 months.</li>
-                    <li>Identified a bottleneck in the arm assembly process and introduced an optimised method using appropriate tooling — <strong style="color:var(--text);">reducing the operation from 2 operators to 1</strong> per assembly.</li>
-                    <li>Coordinated production flow in an unpredictable, non-standardised environment, ensuring output continuity without formal procedures.</li>
-                    <li>Gained practical experience in mechanical connections, hydraulic systems, industrial assembly and on-site problem solving.</li>
-                    <li>Recommended for any position of responsibility — letter of commendation available.</li>
-                  </ul>
-                  <div class="project-tags">
-                    <span>Industrial assembly</span>
-                    <span>Process optimisation</span>
-                    <span>Agricultural machinery</span>
-                    <span>Small-batch production</span>
+        <!-- AVGEROS -->
+        <article class="project fade-in">
+          <div class="project-header">
+            <div>
+              <div class="project-title">Avgeros LLC — Agricultural Machinery Production</div>
+              <div class="project-meta">Production &amp; manufacturing · April – May 2026</div>
+            </div>
+            <span class="badge">Internship</span>
+          </div>
+
+          <img class="project-hero" src="media/avgeros-mini-aiolos.jpg" alt="Mini Aiolos in olive grove" onclick="openLightbox(this.src)">
+
+          <div class="dropdowns">
+            <div class="dd-item">
+              <button class="dd-trigger" onclick="toggleDD(this.parentElement)">
+                <div class="dd-preview">
+                  <img src="media/avgeros-aiolos-4lineup.jpg" alt="Aiolos lineup">
+                  <div class="dd-overlay">
+                    <div class="dd-title">Production &amp; Process</div>
+                    <div class="dd-desc">Small-batch manufacturing of patented olive harvesting machines — 40 units delivered, assembly optimised from 2 operators to 1.</div>
                   </div>
+                  <div class="dd-arrow">▾</div>
                 </div>
-                <div class="project-media">
-                  <a href="media/avgeros-mini-aiolos.jpg" target="_blank" class="hero">
-                    <img src="media/avgeros-mini-aiolos.jpg" alt="Mini Aiolos in olive grove">
-                  </a>
-                  <a href="media/avgeros-aiolos-4lineup.jpg" target="_blank" class="wide">
-                    <img src="media/avgeros-aiolos-4lineup.jpg" alt="Aiolos full-size lineup">
-                  </a>
-                  <a href="media/avgeros-1.jpg" target="_blank">
-                    <img src="media/avgeros-1.jpg" alt="Assembly work at Avgeros">
-                  </a>
-                  <a href="media/avgeros-2.jpg" target="_blank">
-                    <img src="media/avgeros-2.jpg" alt="Welding at Avgeros">
-                  </a>
-                  <a href="media/avgeros-3.jpg" target="_blank">
-                    <img src="media/avgeros-3.jpg" alt="Workshop at Avgeros">
-                  </a>
-                  <a href="media/avgeros-4.jpg" target="_blank">
-                    <img src="media/avgeros-4.jpg" alt="Grinding at Avgeros">
-                  </a>
+              </button>
+              <div class="dd-content">
+                <ul>
+                  <li>Participated in production of <strong>~40 units</strong> (30 mini + 10 full-size Aiolos) over 2 months.</li>
+                  <li>Identified bottleneck in arm assembly — introduced optimised method reducing operation from <strong>2 operators to 1</strong>.</li>
+                  <li>Coordinated production flow in a non-standardised environment, ensuring output continuity without formal procedures.</li>
+                  <li>Letter of commendation from production manager available on request.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="dd-item">
+              <button class="dd-trigger" onclick="toggleDD(this.parentElement)">
+                <div class="dd-preview">
+                  <img src="media/avgeros-1.jpg" alt="Workshop at Avgeros">
+                  <div class="dd-overlay">
+                    <div class="dd-title">Workshop &amp; Field</div>
+                    <div class="dd-desc">Hands-on work across welding, grinding, mechanical assembly and on-site installation in a real industrial setting.</div>
+                  </div>
+                  <div class="dd-arrow">▾</div>
+                </div>
+              </button>
+              <div class="dd-content">
+                <ul>
+                  <li>Hands-on experience in mechanical connections, hydraulic systems and industrial assembly techniques.</li>
+                  <li>Operated in unpredictable field conditions — on-site problem solving without supervision.</li>
+                  <li>Exposure to the full product lifecycle: from sub-assembly through final QC and dispatch.</li>
+                </ul>
+                <div style="margin-top:10px;">
+                  <div class="photo-grid cols2" style="padding:0;">
+                    <a onclick="openLightbox('media/avgeros-2.jpg')"><img src="media/avgeros-2.jpg" alt="Welding"></a>
+                    <a onclick="openLightbox('media/avgeros-3.jpg')"><img src="media/avgeros-3.jpg" alt="Workshop"></a>
+                    <a onclick="openLightbox('media/avgeros-4.jpg')" class="span2"><img src="media/avgeros-4.jpg" alt="Grinding"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </article>
+          </div>
 
-          <!-- HYPERION -->
-          <article class="project hyperion">
-            <div class="project-inner">
-              <div class="project-header">
-                <h2 class="project-title">Hyperion Drone Team &mdash; UAS Development</h2>
-                <div class="project-meta">Founder &amp; Team Manager &bull; 2022 &mdash; Present</div>
-              </div>
-              <div class="project-body">
-                <div class="project-text">
-                  <p>
-                    Hyperion is a student UAS development team at the University of the Peloponnese in Patras, Greece.
-                    The team designs and builds custom multirotor drones from scratch, giving students hands‑on exposure to R&amp;D, integration and flight testing alongside their studies.
-                  </p>
-                  <p>
-                    Within the first six months we designed and built our first drone, "AURORA", without previous experience, and since then we have been iterating both the platform and our processes through competitions and continuous testing.
-                  </p>
-                  <ul>
-                    <li>Founded and lead the team from zero — 3 flying prototype versions currently in operation.</li>
-                    <li>Built "AURORA", a quadcopter capable of flying about 30 minutes and carrying roughly 10 kg of payload.</li>
-                    <li>Developed a YOLO‑based AI detection system, trained on 3,000+ images, able to detect human‑shaped targets at ~40 m during IMAV 2023 preparation.</li>
-                    <li><strong style="color:var(--text);">3 distinctions across 3 competitions</strong> (2023–2026): 1st, 2nd and 3rd place in innovation &amp; entrepreneurship — alongside structured soft-skills development for team members.</li>
-                    <li>Coordinated 3 sub-teams: mechanical design &amp; 3D printing, electronics &amp; programming (Arduino, C++, Python), marketing.</li>
-                    <li>Improved test ergonomics (PID tuning workflow, RC screen in field, dedicated test rig).</li>
-                    <li>Preparing "AURORA 3" for autonomy campaign and IMAV 2026 in France.</li>
-                  </ul>
-                  <div class="project-tags">
-                    <span>Student UAS team</span>
-                    <span>Custom multirotor design</span>
-                    <span>AI human detection</span>
-                    <span>Flight testing</span>
-                    <span>Team coordination</span>
+          <div class="tags">
+            <span class="tag">Industrial assembly</span>
+            <span class="tag">Process optimisation</span>
+            <span class="tag">Agricultural machinery</span>
+            <span class="tag">Small-batch production</span>
+          </div>
+        </article>
+
+        <!-- HYPERION -->
+        <article class="project fade-in">
+          <div class="project-header">
+            <div>
+              <div class="project-title">Hyperion Drone Team — UAS Development</div>
+              <div class="project-meta">Founder &amp; Team Manager · 2022 — Present</div>
+            </div>
+            <span class="badge">3 Distinctions</span>
+          </div>
+
+          <img class="project-hero" src="media/image2.jpg" alt="AURORA drone in flight" onclick="openLightbox(this.src)">
+
+          <div class="dropdowns">
+            <div class="dd-item">
+              <button class="dd-trigger" onclick="toggleDD(this.parentElement)">
+                <div class="dd-preview">
+                  <img src="media/image22.jpg" alt="Hyperion competition">
+                  <div class="dd-overlay">
+                    <div class="dd-title">Team &amp; Competitions</div>
+                    <div class="dd-desc">Founded and managed a multidisciplinary UAS team from zero — 3 flying prototypes in operation, 3 competition distinctions across 2023–2026.</div>
                   </div>
+                  <div class="dd-arrow">▾</div>
                 </div>
-                <div class="project-media">
-                  <a href="media/image2.jpg" target="_blank" class="hero">
-                    <img src="media/image2.jpg" alt="Hyperion Aurora drone">
-                  </a>
-                  <a href="media/image5.jpeg" target="_blank" class="wide">
-                    <img src="media/image5.jpeg" alt="Hyperion flight test">
-                  </a>
-                  <a href="media/image3.jpg" target="_blank">
-                    <img src="media/image3.jpg" alt="Hyperion UAV test setup">
-                  </a>
-                  <a href="media/image6.jpeg" target="_blank">
-                    <img src="media/image6.jpeg" alt="Hyperion field test">
-                  </a>
-                  <a href="media/image4.png" target="_blank">
-                    <img src="media/image4.png" alt="Hyperion team">
-                  </a>
-                  <a href="media/image22.jpg" target="_blank" class="wide">
-                    <img src="media/image22.jpg" alt="Hyperion presentation">
-                  </a>
-                  <a href="media/hyperion-welding.jpg" target="_blank">
-                    <img src="media/hyperion-welding.jpg" alt="Welding at Hyperion workshop">
-                  </a>
-                  <a href="media/hyperion-workshop-1.jpg" target="_blank">
-                    <img src="media/hyperion-workshop-1.jpg" alt="Hyperion workshop">
-                  </a>
-                  <a href="media/hyperion-workshop-2.jpg" target="_blank">
-                    <img src="media/hyperion-workshop-2.jpg" alt="Hyperion workshop 2">
-                  </a>
+              </button>
+              <div class="dd-content">
+                <ul>
+                  <li>Founded and lead the team from zero — <strong>3 flying prototype versions</strong> currently in operation.</li>
+                  <li><strong>3 distinctions across 3 competitions</strong> (2023–2026): 1st, 2nd and 3rd place in innovation &amp; entrepreneurship.</li>
+                  <li>Coordinated 3 sub-teams: mechanical design &amp; 3D printing, electronics &amp; programming (Arduino, C++, Python), marketing.</li>
+                  <li>Secured sponsorships and expanded network with industry experts and faculty.</li>
+                  <li>Sonic Boom: full drone build completed in <strong>15 days</strong> — standard cycle ~6 months.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="dd-item">
+              <button class="dd-trigger" onclick="toggleDD(this.parentElement)">
+                <div class="dd-preview">
+                  <img src="media/image17.png" alt="Hyperion technical">
+                  <div class="dd-overlay">
+                    <div class="dd-title">Technical Development</div>
+                    <div class="dd-desc">Built AURORA — a 10 kg payload quadcopter with AI human detection — and iterated through 3 generations of hardware and flight software.</div>
+                  </div>
+                  <div class="dd-arrow">▾</div>
+                </div>
+              </button>
+              <div class="dd-content">
+                <ul>
+                  <li>Built "AURORA" — quadcopter, ~30 min flight time, ~10 kg payload, Pixhawk / ArduCopter flight controller.</li>
+                  <li>YOLO-based AI detection system, trained on 3,000+ images, detecting human targets at ~40 m (IMAV 2023).</li>
+                  <li>Improved PID tuning workflow — RC screen in field, dedicated test rig, reduced tuning time significantly.</li>
+                  <li>Preparing AURORA 3 for autonomy campaign and IMAV 2026 in France.</li>
+                </ul>
+                <div style="margin-top:10px;">
+                  <div class="photo-grid" style="padding:0;">
+                    <a onclick="openLightbox('media/image5.jpeg')"><img src="media/image5.jpeg" alt="Flight test"></a>
+                    <a onclick="openLightbox('media/image3.jpg')"><img src="media/image3.jpg" alt="Setup"></a>
+                    <a onclick="openLightbox('media/image6.jpeg')"><img src="media/image6.jpeg" alt="Field"></a>
+                    <a onclick="openLightbox('media/image4.png')" class="span3"><img src="media/image4.png" alt="Team"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </article>
+          </div>
 
-          <!-- HDT-333 -->
-          <article class="project">
-            <div class="project-inner">
-              <div class="project-header">
-                <h2 class="project-title">HDT‑333 &mdash; VTOL Cargo UAV <span class="badge">Thesis · Grade 10/10</span></h2>
-                <div class="project-meta">Diploma thesis &bull; Concept, design &amp; prototype · 2026</div>
-              </div>
-              <div class="project-body">
-                <div class="project-text">
-                  <p>
-                    The HDT‑333 is a VTOL cargo UAV designed for high‑efficiency parcel delivery and same‑day logistics.
-                    The project covered system architecture, hybrid propulsion design, full‑scale performance estimation and the development of a 1:6‑scale prototype to validate flight behaviour.
-                  </p>
-                  <p>
-                    Combined aerodynamic analysis (COMSOL Multiphysics), carbon‑fibre structural design and techno‑economic evaluation.
-                  </p>
-                  <ul>
-                    <li>VTOL tandem‑wing layout — overall length ~3 m, carbon‑fibre (Twill 3K) primary structure, 1.92 m² wing area.</li>
-                    <li>Hybrid propulsion: 23 kW gasoline generator + 24S HV Li‑ion (≈14.3 kWh total).</li>
-                    <li>Nine‑motor layout — up to 50 kg payload, ~0.42 m³ cargo, MTOW 240 kg, cruise ~100 km/h, ~67 min endurance.</li>
-                    <li>Pixhawk‑6C flight controller, dual parachute safety system.</li>
-                    <li>1:6 scale flying prototype built and tested to validate flight behaviour and subsystem integration.</li>
-                  </ul>
-                  <div class="project-tags">
-                    <span>VTOL design</span>
-                    <span>Hybrid propulsion</span>
-                    <span>Carbon‑fibre structure</span>
-                    <span>COMSOL CFD</span>
-                    <span>Logistics</span>
+          <div class="tags">
+            <span class="tag">Custom multirotor</span>
+            <span class="tag">Pixhawk / ArduCopter</span>
+            <span class="tag">AI detection</span>
+            <span class="tag">Flight testing</span>
+            <span class="tag">Team management</span>
+          </div>
+        </article>
+
+        <!-- HDT-333 -->
+        <article class="project fade-in">
+          <div class="project-header">
+            <div>
+              <div class="project-title">HDT‑333 — VTOL Cargo UAV</div>
+              <div class="project-meta">Diploma thesis · Concept, design &amp; prototype · 2026</div>
+            </div>
+            <span class="badge gold">Grade 10/10</span>
+          </div>
+
+          <img class="project-hero" src="media/image7.png" alt="HDT-333 render" onclick="openLightbox(this.src)">
+
+          <div class="dropdowns">
+            <div class="dd-item">
+              <button class="dd-trigger" onclick="toggleDD(this.parentElement)">
+                <div class="dd-preview">
+                  <img src="media/image9.png" alt="COMSOL analysis">
+                  <div class="dd-overlay">
+                    <div class="dd-title">System Design &amp; Analysis</div>
+                    <div class="dd-desc">Tandem-wing VTOL with hybrid propulsion — full aerodynamic analysis via COMSOL and techno-economic feasibility evaluation.</div>
                   </div>
+                  <div class="dd-arrow">▾</div>
                 </div>
-                <div class="project-media">
-                  <a href="media/image7.png" target="_blank" class="hero">
-                    <img src="media/image7.png" alt="HDT‑333 overall render">
-                  </a>
-                  <a href="media/image8.png" target="_blank">
-                    <img src="media/image8.png" alt="HDT‑333 structural model">
-                  </a>
-                  <a href="media/image9.png" target="_blank" class="wide">
-                    <img src="media/image9.png" alt="HDT‑333 aerodynamic analysis">
-                  </a>
-                  <a href="media/image10.jpeg" target="_blank" class="wide">
-                    <img src="media/image10.jpeg" alt="HDT‑333 prototype overview">
-                  </a>
-                  <a href="media/image20.jpg" target="_blank">
-                    <img src="media/image20.jpg" alt="HDT‑333 prototype detail">
-                  </a>
-                  <a href="media/image23.png" target="_blank">
-                    <img src="media/image23.png" alt="HDT‑333 design visualization">
-                  </a>
-                  <a href="media/image24.png" target="_blank">
-                    <img src="media/image24.png" alt="HDT‑333 design visualization 2">
-                  </a>
-                  <a href="media/image25.png" target="_blank">
-                    <img src="media/image25.png" alt="HDT‑333 additional view">
-                  </a>
+              </button>
+              <div class="dd-content">
+                <ul>
+                  <li>VTOL tandem-wing layout — length ~3 m, carbon-fibre (Twill 3K), 1.92 m² wing area.</li>
+                  <li>Hybrid propulsion: 23 kW gasoline generator + 24S HV Li-ion (≈14.3 kWh). Endurance ~67 min.</li>
+                  <li>Nine-motor layout — 8 lift + 1 cruise, up to 50 kg payload, ~0.42 m³ cargo, MTOW 240 kg.</li>
+                  <li>Aerodynamic analysis via <strong>COMSOL Multiphysics</strong> — lift, drag, pressure distribution.</li>
+                  <li>Techno-economic evaluation — cost of development, market applications, financial projections.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="dd-item">
+              <button class="dd-trigger" onclick="toggleDD(this.parentElement)">
+                <div class="dd-preview">
+                  <img src="media/image10.jpeg" alt="HDT-333 prototype">
+                  <div class="dd-overlay">
+                    <div class="dd-title">Prototype &amp; Testing</div>
+                    <div class="dd-desc">1:6 scale flying prototype built and tested to validate flight behaviour, subsystem integration and structural design choices.</div>
+                  </div>
+                  <div class="dd-arrow">▾</div>
+                </div>
+              </button>
+              <div class="dd-content">
+                <ul>
+                  <li>1:6 scale flying prototype — validated flight behaviour and subsystem integration.</li>
+                  <li>Pixhawk-6C flight controller with autonomous navigation and safety flight modes.</li>
+                  <li>Dual parachute system for emergency recovery — high climb rate design.</li>
+                  <li>Structural design in carbon-fibre with manufacturing-oriented approach.</li>
+                </ul>
+                <div style="margin-top:10px;">
+                  <div class="photo-grid" style="padding:0;">
+                    <a onclick="openLightbox('media/image8.png')"><img src="media/image8.png" alt="Structural"></a>
+                    <a onclick="openLightbox('media/image20.jpg')"><img src="media/image20.jpg" alt="Detail"></a>
+                    <a onclick="openLightbox('media/image23.png')"><img src="media/image23.png" alt="Viz"></a>
+                    <a onclick="openLightbox('media/image24.png')" class="span2"><img src="media/image24.png" alt="Viz2"></a>
+                    <a onclick="openLightbox('media/image25.png')"><img src="media/image25.png" alt="View"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </article>
+          </div>
 
-          <!-- INFINITY TOUCH -->
-          <article class="project">
-            <div class="project-inner">
-              <div class="project-header">
-                <h2 class="project-title">Infinity Touch &mdash; Touching the Stratosphere <span class="badge">Mission Complete</span></h2>
-                <div class="project-meta">Personal R&amp;D project &bull; 2021</div>
-              </div>
-              <div class="project-body">
-                <div class="project-text">
-                  <p>
-                    Experimental high‑altitude balloon project aimed at reaching the lower stratosphere with a custom-built capsule.
-                    Over several iterations the internal layout, payload integration and reliability were progressively refined.
-                  </p>
-                  <p>
-                    The final capsule, "HAEPHAESTUS II", carried multiple cameras, communication devices and a custom aerodynamic parachute system.
-                  </p>
-                  <ul>
-                    <li>Designed and built five capsule versions with improving internal space management and equipment mounting.</li>
-                    <li>Integrated action cameras, security camera, power bank and SIM-connected phone for live tracking.</li>
-                    <li>Obtained official flight permission from the Hellenic Civil Aviation Authority (HCAA).</li>
-                    <li><strong style="color:var(--text);">17/10/2021 — mission completed:</strong> ~2.5-hour flight reaching ~30 km altitude.</li>
-                    <li>Capsule crossed the Corinthian Gulf and landed safely at sea near Antikyra — concept fully validated.</li>
-                  </ul>
-                  <div class="project-tags">
-                    <span>High‑altitude balloon</span>
-                    <span>Experimental systems</span>
-                    <span>Flight planning</span>
-                    <span>HCAA certified</span>
+          <div class="tags">
+            <span class="tag">VTOL design</span>
+            <span class="tag">Hybrid propulsion</span>
+            <span class="tag">Carbon-fibre</span>
+            <span class="tag">COMSOL CFD</span>
+            <span class="tag">Logistics UAV</span>
+          </div>
+        </article>
+
+        <!-- INFINITY TOUCH -->
+        <article class="project fade-in">
+          <div class="project-header">
+            <div>
+              <div class="project-title">Infinity Touch — Touching the Stratosphere</div>
+              <div class="project-meta">Personal R&amp;D project · 2021</div>
+            </div>
+            <span class="badge">Mission Complete ✓</span>
+          </div>
+
+          <img class="project-hero" src="media/image13.jpg" alt="Capsule at altitude" onclick="openLightbox(this.src)">
+
+          <div class="dropdowns">
+            <div class="dd-item">
+              <button class="dd-trigger" onclick="toggleDD(this.parentElement)">
+                <div class="dd-preview">
+                  <img src="media/image11.jpeg" alt="Capsule preparation">
+                  <div class="dd-overlay">
+                    <div class="dd-title">Design &amp; Build</div>
+                    <div class="dd-desc">Five capsule versions built and iterated — custom parachute, multi-camera payload and SIM-connected tracking system developed from scratch.</div>
                   </div>
+                  <div class="dd-arrow">▾</div>
                 </div>
-                <div class="project-media">
-                  <a href="media/image11.jpeg" target="_blank">
-                    <img src="media/image11.jpeg" alt="Capsule preparation">
-                  </a>
-                  <a href="media/image12.jpeg" target="_blank" class="wide">
-                    <img src="media/image12.jpeg" alt="Launch phase">
-                  </a>
-                  <a href="media/image13.jpg" target="_blank" class="hero">
-                    <img src="media/image13.jpg" alt="Ascent">
-                  </a>
-                  <a href="media/image14.png" target="_blank">
-                    <img src="media/image14.png" alt="Mission visuals">
-                  </a>
-                  <a href="media/image15.png" target="_blank" class="wide">
-                    <img src="media/image15.png" alt="Key frame">
-                  </a>
-                  <a href="media/image26.png" target="_blank">
-                    <img src="media/image26.png" alt="Capsule recovery">
-                  </a>
+              </button>
+              <div class="dd-content">
+                <ul>
+                  <li>Designed and built five capsule versions with progressive improvements in space management and reliability.</li>
+                  <li>Integrated 3 cameras (2 action + 1 security), power bank and SIM phone for live tracking.</li>
+                  <li>Custom aerodynamic parachute — deploys purely from aerodynamic forces during descent.</li>
+                  <li>Obtained official flight permission from the <strong>Hellenic Civil Aviation Authority (HCAA)</strong>.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="dd-item">
+              <button class="dd-trigger" onclick="toggleDD(this.parentElement)">
+                <div class="dd-preview">
+                  <img src="media/image15.png" alt="Mission result">
+                  <div class="dd-overlay">
+                    <div class="dd-title">Mission — 17/10/2021</div>
+                    <div class="dd-desc">~2.5-hour flight reaching ~30 km altitude. Capsule crossed the Corinthian Gulf and was recovered safely at sea near Antikyra.</div>
+                  </div>
+                  <div class="dd-arrow">▾</div>
+                </div>
+              </button>
+              <div class="dd-content">
+                <ul>
+                  <li><strong>17/10/2021:</strong> mission completed — ~2.5 hours, ~30 km altitude reached.</li>
+                  <li>Capsule crossed the Corinthian Gulf — landed safely at sea near Antikyra.</li>
+                  <li>Concept and planning fully validated — all systems performed as designed.</li>
+                </ul>
+                <div style="margin-top:10px;">
+                  <div class="photo-grid cols2" style="padding:0;">
+                    <a onclick="openLightbox('media/image12.jpeg')" class="span2"><img src="media/image12.jpeg" alt="Launch"></a>
+                    <a onclick="openLightbox('media/image14.png')"><img src="media/image14.png" alt="Visuals"></a>
+                    <a onclick="openLightbox('media/image26.png')"><img src="media/image26.png" alt="Recovery"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </article>
-        </section>
+          </div>
+
+          <div class="tags">
+            <span class="tag">High-altitude balloon</span>
+            <span class="tag">Experimental systems</span>
+            <span class="tag">HCAA certified</span>
+            <span class="tag">Flight planning</span>
+          </div>
+        </article>
+
       </div>
 
-      <!-- RIGHT COLUMN -->
+      <!-- RIGHT: SIDEBAR -->
       <aside>
-        <section>
-          <div class="section-title">Profile</div>
-          <div class="side-card">
-            <h3>Short overview</h3>
-            <p>
-              Mechanical engineer who builds things — from flying drones and VTOL cargo aircraft to agricultural machinery on a production line.
-              My work moves from concept and CAD through manufacturing, testing and real-world deployment.
-            </p>
-            <p>
-              I founded and run Hyperion Drone Team, managed production at an industrial facility, and completed a VTOL thesis with a flying prototype.
-              I'm driven by building things that actually work and finding faster, smarter ways to make them.
-            </p>
-          </div>
-        </section>
+        <div class="section-label">Profile</div>
 
-        <section>
-          <div class="section-title">Highlights</div>
-          <div class="side-card">
-            <h3>Selected achievements</h3>
-            <div class="highlight-item">
-              <div class="highlight-dot"></div>
-              <span>Founded Hyperion Drone Team — 3 flying prototype versions, 3 competition distinctions (1st, 2nd, 3rd place).</span>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-dot"></div>
-              <span>Reduced assembly workforce from 2 to 1 per unit at Avgeros production — ~40 machines delivered in 2 months.</span>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-dot"></div>
-              <span>Designed VTOL cargo UAV (HDT-333) with 1:6 flying prototype — diploma thesis, grade 10/10.</span>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-dot"></div>
-              <span>Infinity Touch mission completed 17/10/2021 — ~30 km altitude reached, capsule recovered safely.</span>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-dot"></div>
-              <span>Sonic Boom: full drone build in 15 days — standard cycle is ~6 months.</span>
-            </div>
-          </div>
-        </section>
+        <div class="side-card fade-in">
+          <h3>Overview</h3>
+          <p>
+            Mechanical engineer who builds things — from flying drones and VTOL cargo aircraft to agricultural machinery on a production line.
+            Work moves from concept and CAD through manufacturing, testing and real-world deployment.
+          </p>
+          <p>
+            Founded and run Hyperion Drone Team, managed production at an industrial facility, completed a VTOL thesis with a flying prototype. Driven by building things that actually work and finding faster, smarter ways to make them.
+          </p>
+        </div>
 
-        <section>
-          <div class="section-title">Skills &amp; languages</div>
-          <div class="side-card">
-            <h3>Key skills</h3>
-            <ul>
-              <li>Multirotor &amp; UAV system development (Pixhawk / ArduCopter).</li>
-              <li>VTOL &amp; hybrid propulsion design.</li>
-              <li>CAD modelling &amp; 3D printing (Fusion 360, AutoCAD).</li>
-              <li>Industrial assembly &amp; process optimisation.</li>
-              <li>Aerodynamic analysis — COMSOL Multiphysics.</li>
-              <li>Team leadership &amp; project coordination.</li>
-              <li>Testing, troubleshooting &amp; PID tuning.</li>
-            </ul>
-            <h3 style="margin-top:10px;">Languages</h3>
-            <ul>
-              <li>Greek &mdash; Native</li>
-              <li>English &mdash; B2 (Cambridge certified)</li>
-              <li>French &mdash; B2 (certified)</li>
-            </ul>
-          </div>
-        </section>
+        <div class="section-label" style="margin-top:4px;">Highlights</div>
 
-        <section>
-          <div class="section-title">Other CAD work</div>
-          <div class="side-card">
-            <h3>Other CAD &amp; product design</h3>
-            <p>
-              Alongside main projects: mechanical parts, functional prototypes and assemblies for 3D printing or conventional manufacturing.
-              Focused on tolerances, assembly constraints and printability.
-            </p>
-            <p style="margin-top:6px;">
-              Full selection on GrabCAD:<br>
-              <a href="https://grabcad.com/babo.rabo-1" target="_blank" rel="noopener">grabcad.com/babo.rabo-1</a>
-            </p>
+        <div class="side-card fade-in">
+          <div class="highlight-list">
+            <div class="hl-item"><div class="hl-dot"></div><span>Founded Hyperion Drone Team — 3 flying prototypes, 3 competition distinctions (1st, 2nd, 3rd).</span></div>
+            <div class="hl-item"><div class="hl-dot"></div><span>Reduced assembly from 2 operators to 1 at Avgeros — ~40 machines in 2 months.</span></div>
+            <div class="hl-item"><div class="hl-dot"></div><span>HDT-333 VTOL thesis with 1:6 flying prototype — grade 10/10.</span></div>
+            <div class="hl-item"><div class="hl-dot"></div><span>Infinity Touch: ~30 km altitude reached, capsule recovered. Mission complete 17/10/2021.</span></div>
+            <div class="hl-item"><div class="hl-dot"></div><span>Sonic Boom: full drone build in 15 days vs ~6 month standard cycle.</span></div>
           </div>
-        </section>
+        </div>
 
-        <section>
-          <div class="section-title">Military service</div>
-          <div class="side-card">
-            <h3>Hellenic Army — ELDYK (Cyprus) <span class="badge">Completed</span></h3>
-            <p style="font-family:'DM Mono',monospace;font-size:0.8rem;">May 2025 – December 2025</p>
-            <ul>
-              <li>Tank driver — daily operations, training activities and field exercises.</li>
-              <li>Administrative duties at the Office of Logistics Support — handling of classified service documents, high-level organisational tasks.</li>
-              <li>Operated a commercial UAV during field exercises for area surveillance and patrol support — produced visual material for post-exercise review.</li>
-              <li>Commended by commanding officer for reliability, methodical work and professional conduct without supervision.</li>
-            </ul>
-            <div class="military-photos">
-              <a href="media/military-drone-field.jpg" target="_blank" class="span2">
-                <img src="media/military-drone-field.jpg" alt="UAV operations in field">
-              </a>
-              <a href="media/military-drone-controller.jpg" target="_blank">
-                <img src="media/military-drone-controller.jpg" alt="Drone controller">
-              </a>
-              <a href="media/military-tank.jpg" target="_blank">
-                <img src="media/military-tank.jpg" alt="Tank operations">
-              </a>
-              <a href="media/military-office.jpg" target="_blank" class="span2">
-                <img src="media/military-office.jpg" alt="Administrative duties">
-              </a>
-            </div>
-          </div>
-        </section>
+        <div class="section-label" style="margin-top:4px;">Skills &amp; Languages</div>
 
-        <section>
-          <div class="section-title">Current focus</div>
-          <div class="side-card">
-            <h3>Next steps</h3>
-            <p>
-              Looking for an <strong style="color:var(--text);">Erasmus+ traineeship</strong> (Oct 2026 – Apr 2027) in agri-tech, UAV manufacturing or precision agriculture — ideally in a company where engineering work goes from design to production.
-            </p>
-            <p>
-              Long-term goal: build manufacturing in Greece. Interested in any environment where prototypes become real products.
-            </p>
+        <div class="side-card fade-in">
+          <h3>Technical</h3>
+          <ul>
+            <li>Multirotor &amp; UAV systems (Pixhawk / ArduCopter)</li>
+            <li>VTOL &amp; hybrid propulsion design</li>
+            <li>CAD — Fusion 360, AutoCAD</li>
+            <li>FDM 3D printing &amp; materials selection</li>
+            <li>Aerodynamic analysis — COMSOL Multiphysics</li>
+            <li>Industrial assembly &amp; process optimisation</li>
+            <li>Electronics — Arduino, C++, Python (working knowledge)</li>
+            <li>PID tuning &amp; flight controller integration</li>
+          </ul>
+          <h3 style="margin-top:14px;">Languages</h3>
+          <ul>
+            <li>Greek — Native</li>
+            <li>English — B2 <span style="color:var(--text-soft);font-size:0.8rem;">(Cambridge certified)</span></li>
+            <li>French — B2 <span style="color:var(--text-soft);font-size:0.8rem;">(certified)</span></li>
+          </ul>
+        </div>
+
+        <div class="section-label" style="margin-top:4px;">Military Service</div>
+
+        <div class="side-card fade-in">
+          <h3>Hellenic Army — ELDYK Cyprus <span class="badge" style="font-size:0.65rem;">Completed</span></h3>
+          <p style="font-family:'DM Mono',monospace;font-size:0.76rem;margin-bottom:10px;">May 2025 – December 2025</p>
+          <ul>
+            <li>Tank driver — daily operations and field exercises.</li>
+            <li>Administrative duties at Logistics Support Office — handling of classified service documentation with high organisational precision.</li>
+            <li>Operated commercial UAV during field exercises for area surveillance and patrol support.</li>
+            <li>Commended by commanding officer for reliability and professional conduct without supervision.</li>
+          </ul>
+          <div class="mil-grid">
+            <a onclick="openLightbox('media/military-drone-field.jpg')" class="span2">
+              <img src="media/military-drone-field.jpg" alt="UAV field operations">
+            </a>
+            <a onclick="openLightbox('media/military-drone-controller.jpg')">
+              <img src="media/military-drone-controller.jpg" alt="Drone controller">
+            </a>
+            <a onclick="openLightbox('media/military-tank.jpg')">
+              <img src="media/military-tank.jpg" alt="Tank operations">
+            </a>
+            <a onclick="openLightbox('media/military-office.jpg')" class="span2">
+              <img src="media/military-office.jpg" alt="Office duties">
+            </a>
           </div>
-        </section>
+        </div>
+
+        <div class="section-label" style="margin-top:4px;">Other CAD Work</div>
+
+        <div class="side-card fade-in">
+          <h3>CAD &amp; Product Design</h3>
+          <p>Mechanical parts, functional prototypes and assemblies for 3D printing or conventional manufacturing. Focus on tolerances, assembly constraints and printability.</p>
+          <p><a href="https://grabcad.com/babo.rabo-1" target="_blank">grabcad.com/babo.rabo-1</a></p>
+        </div>
+
+        <div class="section-label" style="margin-top:4px;">Current Focus</div>
+
+        <div class="side-card fade-in">
+          <h3>Next Steps</h3>
+          <p>
+            Looking for an <strong style="color:var(--text);">Erasmus+ traineeship</strong> (Oct 2026 – Apr 2027) in agri-tech, UAV manufacturing or precision agriculture — ideally where engineering goes from design to production.
+          </p>
+          <p>Long-term goal: build manufacturing in Greece. Interested in any environment where prototypes become real products.</p>
+        </div>
+
       </aside>
     </main>
 
     <footer>
-      Last updated: June 2026 &middot; trilivaschdennis33.github.io/portfolio
+      <span>Charalampos–Dionysios Trilivas</span>
+      <span>Last updated: June 2026 · trilivaschdennis33.github.io/portfolio</span>
     </footer>
   </div>
+
+  <script>
+    // LIGHTBOX
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // DROPDOWNS
+    function toggleDD(item) {
+      item.classList.toggle('open');
+    }
+  </script>
 </body>
 </html>
