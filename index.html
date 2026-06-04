@@ -263,6 +263,47 @@
 
     .project-hero:hover { transform: scale(1.02); }
 
+    .project-hero-wrap {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .project-hero-wrap img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .project-hero-wrap:hover img { transform: scale(1.02); }
+
+    .project-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(2,6,23,0.0) 20%, rgba(2,6,23,0.75) 70%, rgba(2,6,23,0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px 20px;
+      pointer-events: none;
+    }
+
+    .project-hero-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+
+    .project-hero-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.74rem;
+      color: rgba(255,255,255,0.6);
+    }
+
     /* ── DROPDOWNS ── */
     .dropdowns { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
 
@@ -628,15 +669,16 @@
 
         <!-- AVGEROS -->
         <article class="project fade-in">
-          <div class="project-header">
-            <div>
-              <div class="project-title">Avgeros LLC — Agricultural Machinery Production</div>
-              <div class="project-meta">Production &amp; manufacturing · April – May 2026</div>
-            </div>
-            <span class="badge">Internship</span>
+          <div class="project-header" style="border-bottom:none;padding-bottom:0;">
+            <span class="badge" style="margin-left:auto;">Internship</span>
           </div>
-
-          <img class="project-hero" src="media/avgeros-mini-aiolos.jpg" alt="Mini Aiolos in olive grove" onclick="openLightbox(this.src)">
+          <div class="project-hero-wrap" onclick="openLightbox('media/avgeros-mini-aiolos.jpg')">
+            <img src="media/avgeros-mini-aiolos.jpg" alt="Mini Aiolos in olive grove">
+            <div class="project-hero-overlay">
+              <div class="project-hero-title">Avgeros LLC — Agricultural Machinery Production</div>
+              <div class="project-hero-meta">Production &amp; manufacturing · April – May 2026</div>
+            </div>
+          </div>
 
           <div class="dropdowns">
             <div class="dd-item">
@@ -698,15 +740,16 @@
 
         <!-- HYPERION -->
         <article class="project fade-in">
-          <div class="project-header">
-            <div>
-              <div class="project-title">Hyperion Drone Team — UAS Development</div>
-              <div class="project-meta">Founder &amp; Team Manager · 2022 — Present</div>
-            </div>
-            <span class="badge">3 Distinctions</span>
+          <div class="project-header" style="border-bottom:none;padding-bottom:0;">
+            <span class="badge" style="margin-left:auto;">3 Distinctions</span>
           </div>
-
-          <img class="project-hero" src="media/image2.jpg" alt="AURORA drone in flight" onclick="openLightbox(this.src)">
+          <div class="project-hero-wrap" onclick="openLightbox('media/logo.jpg')">
+            <img src="media/logo.jpg" alt="Hyperion Drone Team logo">
+            <div class="project-hero-overlay">
+              <div class="project-hero-title">Hyperion Drone Team — UAS Development</div>
+              <div class="project-hero-meta">Founder &amp; Team Manager · 2022 — Present</div>
+            </div>
+          </div>
 
           <div class="dropdowns">
             <div class="dd-item">
@@ -728,6 +771,12 @@
                   <li>Secured sponsorships and expanded network with industry experts and faculty.</li>
                   <li>Sonic Boom: full drone build completed in <strong>15 days</strong> — standard cycle ~6 months.</li>
                 </ul>
+                <div style="margin-top:10px;">
+                  <div class="photo-grid cols2" style="padding:0;">
+                    <a onclick="openLightbox('media/competition.jpg')" class="span2"><img src="media/competition.jpg" alt="Competition"></a>
+                    <a onclick="openLightbox('media/competition2.jpg')" class="span2"><img src="media/competition2.jpg" alt="Competition 2"></a>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -772,15 +821,16 @@
 
         <!-- HDT-333 -->
         <article class="project fade-in">
-          <div class="project-header">
-            <div>
-              <div class="project-title">HDT‑333 — VTOL Cargo UAV</div>
-              <div class="project-meta">Diploma thesis · Concept, design &amp; prototype · 2026</div>
-            </div>
-            <span class="badge gold">Grade 10/10</span>
+          <div class="project-header" style="border-bottom:none;padding-bottom:0;">
+            <span class="badge gold" style="margin-left:auto;">Grade 10/10</span>
           </div>
-
-          <img class="project-hero" src="media/image7.png" alt="HDT-333 render" onclick="openLightbox(this.src)">
+          <div class="project-hero-wrap" onclick="openLightbox('media/image7.png')">
+            <img src="media/image7.png" alt="HDT-333 render">
+            <div class="project-hero-overlay">
+              <div class="project-hero-title">HDT‑333 — VTOL Cargo UAV</div>
+              <div class="project-hero-meta">Diploma thesis · Concept, design &amp; prototype · 2026</div>
+            </div>
+          </div>
 
           <div class="dropdowns">
             <div class="dd-item">
@@ -847,15 +897,16 @@
 
         <!-- INFINITY TOUCH -->
         <article class="project fade-in">
-          <div class="project-header">
-            <div>
-              <div class="project-title">Infinity Touch — Touching the Stratosphere</div>
-              <div class="project-meta">Personal R&amp;D project · 2021</div>
-            </div>
-            <span class="badge">Mission Complete ✓</span>
+          <div class="project-header" style="border-bottom:none;padding-bottom:0;">
+            <span class="badge" style="margin-left:auto;">Mission Complete ✓</span>
           </div>
-
-          <img class="project-hero" src="media/image13.jpg" alt="Capsule at altitude" onclick="openLightbox(this.src)">
+          <div class="project-hero-wrap" onclick="openLightbox('media/image13.jpg')">
+            <img src="media/image13.jpg" alt="Capsule at altitude">
+            <div class="project-hero-overlay">
+              <div class="project-hero-title">Infinity Touch — Touching the Stratosphere</div>
+              <div class="project-hero-meta">Personal R&amp;D project · 2021</div>
+            </div>
+          </div>
 
           <div class="dropdowns">
             <div class="dd-item">
